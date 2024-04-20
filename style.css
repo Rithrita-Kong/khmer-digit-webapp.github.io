@@ -1,174 +1,110 @@
-/* Some CSS styling */
-
-#sketchpadapp {
-  /* Prevent nearby text being highlighted when accidentally dragging mouse outside confines of the canvas */
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#clear_button {
-  margin-left: 15px;
-  font-weight: bold;
-  color: blue;
+body {
+  font-family: "Jost", sans-serif;
+  font-size: 20px;
+  text-align: center;
+  margin: 30px;
+  color: #111;
+}
+
+h1 {
+  font-size: 46px;
+}
+
+p {
+  margin: 0 20px;
+  color: #444;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+#input {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+#prediction {
+  width: 300px;
+  height: 300px;
+  border: 3px solid #ccc;
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  font-size: 228px;
+  line-height: 300px;
 }
 
 #confidence {
-  font-family: "Josefin Sans", sans-serif;
-  margin-top: 7.5%;
+  margin: 16px;
+  font-weight: 500;
+  color: #333;
 }
 
-#content {
-  margin: 0 auto;
-  padding: 2% 15%;
-  padding-bottom: 0;
+#main-canvas {
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 10px;
 }
 
-.welcome {
-  text-align: center;
-  position: relative;
-  color: honeydew;
-  background-color: greenyellow;
-  padding-top: 1%;
-  padding-bottom: 1%;
-  font-weight: bold;
-  font-family: "Prompt", sans-serif;
+#small-canvas {
+  display: none;
 }
 
-#footer {
-  text-align: center;
-  background-color: #292b2c;
-  color: #fff;
-  padding-top: 1%;
-  padding-bottom: 0%;
+button {
+  display: block;
+  font: inherit;
+  font-weight: 500;
+  padding: 8px 26px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ddd;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.1s;
+  margin-top: 10px;
 }
 
-#predict_button {
-  margin-right: 15px;
-  color: blue;
-  font-weight: bold;
+button:hover {
+  background-color: #222;
+  color: white;
 }
 
-#prediction_heading {
-  font-family: "Josefin Sans", sans-serif;
-  margin-top: 7.5%;
-}
-
-#result {
-  font-family: "Pacifico", cursive;
-  font-size: 5rem;
-}
-
-#sketchpad {
-  /* float:left; */
-  height: 250px;
-  width: 250px;
-  border: 2px solid #888;
-  border-radius: 4px;
-  /* position:relative; /* Necessary for correct mouse co-ords in Firefox */
-}
-
-#source {
-  padding: 0 100px;
-  text-align: center;
-  margin-bottom: 10%;
-}
-
-#title {
-  padding: 1.5% 15%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.btn {
-  font-size: 15px;
-  padding: 10px;
-  -webkit-appearance: none;
-  background: #eee;
-  border: 1px solid #888;
+/* Style for the prediction table */
+#prediction-table {
+  border-collapse: collapse;
+  width: 500px;
   margin-top: 20px;
-  margin-bottom: 20px;
 }
 
-.buttons_div {
-  margin-bottom: 30px;
-}
-
-.heading {
-  font-family: "Varela Round", sans-serif;
-  font-weight: 700;
-  font-size: 3rem;
-  display: inline;
-}
-
-.leftside {
+#prediction-table th,
+#prediction-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
   text-align: center;
-  margin: 0 auto;
-  margin-top: 4%;
-  float: left;
-  /* padding-left: 10%; */
 }
 
-.predicted_answer {
-  text-align: center;
-  margin: 0 auto;
-  padding: 3% 5%;
-  padding-top: 0;
-  /* padding-left: 10%; */
-  float: right;
+#prediction-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
 }
 
-.responsive_img {
-  width: 75%;
-  height: 10vw;
-  object-fit: cover;
+#prediction-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-.social-media-icons {
-  margin: 10px 40px;
-}
-
-.source-column {
-  padding: 3% 2%;
-}
-
-.source-h2 {
-  text-align: center;
-  font-family: "Pacifico", cursive;
-  font-size: 2rem;
-}
-
-hr {
-  border: dotted #808080 6px;
-  border-bottom: none;
-  width: 4%;
-  margin: 50px auto;
-  margin-bottom: 100px;
-}
-
-a:link {
-  color: white;
-  text-decoration: none;
-}
-
-a:visited {
-  color: white;
-  text-decoration: none;
-}
-
-a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-a:active {
-  color: white;
-  text-decoration: none;
-}
-p {
-  font-family: "Source Code Pro", monospace, sans-serif;
-  margin-top: 1%;
+#prediction-table tr:hover {
+  background-color: #ddd;
 }
