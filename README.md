@@ -10,10 +10,14 @@ The model was built and trained in Python using the Keras library, then saved us
 
 ![UI Image](./assets/UI.png)
 
+## Check out the [Dataset](https://github.com/Rithrita-Kong/Khmer-Handwritten-Dataset.git)
+
+![Dataset Image](./assets/Dataset.png)
+
 ## Features
 
 - Draw digits on the canvas and get real-time predictions.
-- Supports handwritten digits from 0 to 9.
+- Supports Khmer handwritten digits from ០ to ៩ (0 to 9).
 - Displays the predicted digit with confidence percentage.
 - Ability to reset the canvas and start over.
 
