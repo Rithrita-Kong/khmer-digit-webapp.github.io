@@ -25,7 +25,7 @@ function drawStartEvent(event) {
   inputBox.beginPath();
 }
 canvas.addEventListener("mousedown", drawStartEvent);
-// canvas.addEventListener("ontouchstart", drawStartEvent);
+canvas.addEventListener("ontouchstart", drawStartEvent);
 
 function drawMoveEvent(event) {
   if (isDrawing) {
@@ -40,7 +40,7 @@ function drawEndEvent(event) {
   updateDisplay(predict());
 }
 canvas.addEventListener("mouseup", drawEndEvent);
-// canvas.addEventListener("ontouchend", drawEndEvent);
+canvas.addEventListener("ontouchend", drawEndEvent);
 
 /* Draws on canvas */
 function drawStroke(clientX, clientY) {
