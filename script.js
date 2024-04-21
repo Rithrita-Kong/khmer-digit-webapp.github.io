@@ -71,7 +71,10 @@ function getPixelData(thresh = 100, size_thresh = 15) {
     for (let j = 0; j < width; j++) {
       const index = (i * width + j) * 4; // Each pixel is represented by 4 values (RGBA)
       const red = imgData.data[index]; // Red channel value
-      row.push(red); // Normalize and push red channel value
+      // Binarize the pixel based on threshold (assuming white background)
+      const binaryValue = red > thresh ? 1 : 0;
+      // Normalize and push binary pixel value
+      row.push(binaryValue);
     }
     img.push(row);
   }
@@ -88,7 +91,7 @@ function getPixelData(thresh = 100, size_thresh = 15) {
   return values;
 }
 
-function smartCrop(img, thresh = 100, size_thresh = 15) {
+function smartCrop(img, size_thresh = 15) {
   const size = img.length;
   let min_x = size,
     min_y = size,
@@ -98,7 +101,7 @@ function smartCrop(img, thresh = 100, size_thresh = 15) {
   // Find bounding box
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
-      if (img[x][y] < thresh) {
+      if (img[x][y] == 0) {
         min_x = Math.min(x, min_x);
         min_y = Math.min(y, min_y);
         max_x = Math.max(x, max_x);
