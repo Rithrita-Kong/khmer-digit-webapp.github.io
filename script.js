@@ -24,23 +24,17 @@ function drawStartEvent(event) {
   inputBox.lineJoin = inputBox.lineCap = "round";
   inputBox.beginPath();
 }
-canvas.addEventListener("mousedown", drawStartEvent);
-canvas.addEventListener("ontouchstart", drawStartEvent);
 
 function drawMoveEvent(event) {
   if (isDrawing) {
     drawStroke(event.clientX, event.clientY);
   }
 }
-canvas.addEventListener("mousemove", drawMoveEvent);
-canvas.addEventListener("ontouchmove", drawMoveEvent);
 
 function drawEndEvent(event) {
   isDrawing = false;
   updateDisplay(predict());
 }
-canvas.addEventListener("mouseup", drawEndEvent);
-canvas.addEventListener("ontouchend", drawEndEvent);
 
 /* Draws on canvas */
 function drawStroke(clientX, clientY) {
@@ -204,5 +198,25 @@ function downloadDrawing(resizedImg) {
   link.download = "resized_image.png"; // Set the download filename
   link.click(); // Trigger the download
 }
+
+// Event listeners for touch events on pc
+canvas.addEventListener("mousedown", drawStartEvent);
+canvas.addEventListener("mousemove", drawMoveEvent);
+canvas.addEventListener("mouseup", drawEndEvent);
+
+// Event listeners for touch events on mobile
+canvas.addEventListener("touchstart", (event) => {
+  event.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
+  drawStartEvent(event.touches[0]); // Pass the first touch point
+});
+canvas.addEventListener("touchmove", (event) => {
+  event.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
+  drawMoveEvent(event.touches[0]); // Pass the first touch point
+});
+canvas.addEventListener("touchend", (event) => {
+  event.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
+  drawEndEvent(event.touches[0]); // Pass the first touch point
+});
+
 erase();
 init();
