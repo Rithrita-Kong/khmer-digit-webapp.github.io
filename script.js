@@ -20,7 +20,7 @@ function drawStartEvent(event) {
   isDrawing = true;
   inputBox.fillStyle = "white";
   inputBox.strokeStyle = "black";
-  inputBox.lineWidth = "15";
+  inputBox.lineWidth = "20";
   inputBox.lineJoin = inputBox.lineCap = "round";
   inputBox.beginPath();
 }
@@ -77,20 +77,19 @@ function getPixelData(thresh = 100, size_thresh = 15) {
     for (let j = 0; j < width; j++) {
       const index = (i * width + j) * 4; // Each pixel is represented by 4 values (RGBA)
       const red = imgData.data[index]; // Red channel value
-      row.push(red / 255); // Normalize and push red channel value
+      row.push(red); // Normalize and push red channel value
     }
     img.push(row);
   }
-
   // Perform smart cropping
   const croppedImg = smartCrop(img, thresh, size_thresh);
 
   // Resize the cropped image to 28x28
   const resizedImg = resizeImage(croppedImg);
-  //   downloadDrawing(resizedImg);
 
   // Reshape resized image into proper format for TensorFlow
   const values = tf.tensor(resizedImg).expandDims(0).expandDims(-1);
+  // downloadDrawing(resizedImg);
 
   return values;
 }
@@ -119,7 +118,6 @@ function smartCrop(img, thresh = 100, size_thresh = 15) {
   min_y = Math.max(min_y - size_thresh, 0);
   max_x = Math.min(max_x + size_thresh, size);
   max_y = Math.min(max_y + size_thresh, size);
-
   // Crop the image
   const crop = [];
   for (let i = min_x; i < max_x; i++) {
@@ -151,7 +149,6 @@ function resizeImage(img) {
 function updateDisplay(predictions) {
   const table = document.querySelector("#prediction-table tbody");
   const digitNames = ["០", "១", "២", "៣", "៤", "៥", "៦", "៧", "៨", "៩"];
-  console.log(table);
   // Populate table with prediction percentages for all digits
   for (let i = 0; i < predictions.length; i++) {
     const percentageCell = table.rows[i].cells[1];
@@ -180,13 +177,31 @@ function erase() {
   confidence.innerHTML = "&#8212";
 }
 /* Convert canvas drawing to an image and download */
-function downloadDrawing(imageData) {
-  const imageDataURL = imageData.toDataURL("image/png");
+function downloadDrawing(resizedImg) {
+  // Create a temporary canvas element
+  const tempCanvas = document.createElement("canvas");
+  const tempCtx = tempCanvas.getContext("2d");
+
+  // Set the canvas size to match the resized image
+  tempCanvas.width = resizedImg[0].length;
+  tempCanvas.height = resizedImg.length;
+
+  // Draw the resized image onto the canvas
+  for (let i = 0; i < resizedImg.length; i++) {
+    for (let j = 0; j < resizedImg[0].length; j++) {
+      const pixelValue = resizedImg[i][j] * 255; // Scale the pixel value back to 0-255 range
+      tempCtx.fillStyle = `rgb(${pixelValue},${pixelValue},${pixelValue})`; // Set grayscale color
+      tempCtx.fillRect(j, i, 1, 1); // Fill a single pixel
+    }
+  }
+
+  // Convert the canvas content to a data URL
+  const dataURL = tempCanvas.toDataURL("image/png");
 
   // Create a temporary link element
   const link = document.createElement("a");
-  link.href = imageDataURL;
-  link.download = "drawing.png"; // Set the download filename
+  link.href = dataURL;
+  link.download = "resized_image.png"; // Set the download filename
   link.click(); // Trigger the download
 }
 erase();
