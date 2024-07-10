@@ -45,6 +45,7 @@ section {
   border-radius: 10px;
   font-size: 228px;
   line-height: 300px;
+  font-weight: 400;
 }
 
 #confidence {
@@ -65,8 +66,10 @@ section {
 
 button {
   display: block;
+  width: 25vw;
   font: inherit;
   font-weight: 500;
+  font-size: 20px;
   padding: 8px 26px;
   border: none;
   border-radius: 5px;
@@ -107,6 +110,10 @@ button:hover {
 
 #prediction-table tr:hover {
   background-color: #ddd;
+}
+
+#prediction-table td {
+  font-weight: 400;
 }
 
 footer {
