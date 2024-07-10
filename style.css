@@ -40,6 +40,7 @@ section {
 #prediction {
   width: 300px;
   height: 300px;
+  font-family: "Kantumruy Pro", sans-serif;
   border: 3px solid #ccc;
   background-color: #f6f6f6;
   border-radius: 10px;
@@ -114,6 +115,7 @@ button:hover {
 
 #prediction-table td {
   font-weight: 400;
+  font-family: "Kantumruy Pro", sans-serif;
 }
 
 footer {
