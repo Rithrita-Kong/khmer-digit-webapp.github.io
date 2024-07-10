@@ -108,3 +108,39 @@ button:hover {
 #prediction-table tr:hover {
   background-color: #ddd;
 }
+
+footer {
+  padding: 10px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+footer i {
+  margin-right: 15px;
+  font-size: 30px;
+}
+
+footer p {
+  color: white;
+  font-weight: bold;
+}
+
+.github-link {
+  background-color: #444444;
+  border-radius: 5px;
+  color: white;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.github-link:hover {
+  background-color: #666666;
+}
