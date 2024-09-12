@@ -2,18 +2,40 @@ const canvas = document.getElementById("main-canvas");
 const smallCanvas = document.getElementById("small-canvas");
 const displayBox = document.getElementById("prediction");
 const confidence = document.getElementById("confidence");
+const modelSelection = document.getElementById("model-selection");
+const statusElement = document.getElementById("status");
 
 const inputBox = canvas.getContext("2d");
 const smBox = smallCanvas.getContext("2d");
 
 let isDrawing = false;
 let model;
+let selectedValue = "model/cnn/model.json";
+let modelLoaded = false; // Flag to track model loading status
 
 /* Loads trained model */
-async function init() {
-  console.log("model loading...");
-  model = await tf.loadLayersModel("model/model.json");
-  console.log("model loaded..");
+async function init(modelSelect) {
+  console.log(selectedValue);
+  console.log(modelSelect);
+  // Update status to loading
+  statusElement.textContent = "Model status: Loading...";
+  console.log("Model loading...");
+  modelLoaded = false;
+
+  // Load the model
+  try {
+    model = await tf.loadLayersModel(modelSelect);
+    modelLoaded = true;
+    // Update status to loaded
+    statusElement.textContent = "Model status: Loaded successfully!";
+    console.log("Model loaded.");
+  } catch (error) {
+    // Handle errors and update status
+    modelLoaded = false;
+    statusElement.textContent = "Model status: Failed to load!";
+    console.error("Error loading model:", error);
+  }
+  return modelLoaded;
 }
 
 function drawStartEvent(event) {
@@ -33,6 +55,7 @@ function drawMoveEvent(event) {
 
 function drawEndEvent(event) {
   isDrawing = false;
+
   updateDisplay(predict());
 }
 
@@ -53,7 +76,7 @@ function drawStroke(clientX, clientY) {
 function predict() {
   let values = getPixelData();
   let predictions = model.predict(values).dataSync();
-
+  console.log(predictions);
   return predictions;
 }
 
@@ -87,7 +110,7 @@ function getPixelData(thresh = 100, size_thresh = 15) {
   // Reshape resized image into proper format for TensorFlow
   const values = tf.tensor(resizedImg).expandDims(0).expandDims(-1);
   // downloadDrawing(resizedImg);
-
+  console.log(values.shape);
   return values;
 }
 
@@ -144,6 +167,7 @@ function resizeImage(img) {
 
 /* Displays predictions on screen */
 function updateDisplay(predictions) {
+  console.log("yes");
   const table = document.querySelector("#prediction-table tbody");
   const digitNames = ["០", "១", "២", "៣", "៤", "៥", "៦", "៧", "៨", "៩"];
   // Populate table with prediction percentages for all digits
@@ -221,5 +245,21 @@ canvas.addEventListener("touchend", (event) => {
   drawEndEvent(event.touches[0]); // Pass the first touch point
 });
 
+// Add an event listener to detect changes
+modelSelection.addEventListener("change", async function () {
+  // Get the selected value
+  selectedValue = String(modelSelection.value);
+
+  // Do something with the selected value
+  console.log("Selected model value: " + selectedValue);
+  loaded = await init(selectedValue);
+  console.log(loaded);
+  if (modelLoaded) {
+    console.log(modelLoaded);
+    // predict();
+    drawEndEvent();
+  }
+});
+
 erase();
-init();
+init(selectedValue);

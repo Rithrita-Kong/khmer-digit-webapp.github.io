@@ -86,6 +86,61 @@ button:hover {
   color: white;
 }
 
+/* Style for selection dropdown */
+
+/* Basic wrapper style */
+.custom-select-wrapper {
+  width: 200px;
+  position: relative;
+}
+
+/* Custom select styling */
+.custom-select select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  background-color: #fff;
+  appearance: none; /* Removes default dropdown arrow */
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Arrow icon for dropdown */
+.custom-select::after {
+  content: "\25BC"; /* Unicode for downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 12px;
+  color: #3498db;
+}
+
+/* Change border color on focus */
+.custom-select select:focus {
+  border-color: #2980b9;
+}
+
+/* Hover effect */
+.custom-select select:hover {
+  border-color: #2980b9;
+}
+
+/* Style for disabled option */
+.custom-select select option[value="0"] {
+  color: #bbb;
+}
+
+/* Optional: Adjust font family for modern look */
+body {
+  font-family: "Arial", sans-serif;
+}
+
 /* Style for the prediction table */
 #prediction-table {
   border-collapse: collapse;

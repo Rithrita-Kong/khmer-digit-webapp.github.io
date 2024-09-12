@@ -24,6 +24,22 @@
             
             <div id="confidence">&#8212</div>
             <button id="erase">Reset</button>
+            
+            <div class="custom-select-wrapper">
+                <div class="custom-select">
+                    <select id="model-selection">
+                        <option value="model/cnn/model.json" selected>CNN</option>
+                        <option value="model/vgg16/model.json">VGG16</option>
+                        <option value="model/resnet50/model.json">ResNet50</option>
+                        <option value="model/mlp/model.json">MLP</option>
+                        <option value="model/mobilenet/model.json">MobileNet</option>
+                        <option value="model/lenet/model.json">LeNet</option>
+                    </select>
+                </div>
+            </div>
+            <div id="status">Model status: Not loaded</div>
+
+            
         </section>
         <section>
             <table id="prediction-table">
